@@ -1,9 +1,10 @@
 import './App.css';
+import Register from './Auth/Register';
 
 function App() {
   return (
     <div className="App">
-      Hello World!
+      <Register />
     </div>
   );
 }
