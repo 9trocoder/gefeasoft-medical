@@ -15,10 +15,8 @@ import Image from '../../image/sign.jpg';
 function CopyRight() {
     return (
         <Typography variant="body2" color="textSecondary" align="Center">
-            {'Copyright ©'}
-            <Link color="inherit" href="https://material-ui.com/">
-                Gefeasoft-Medical
-            </Link>{' '}
+            {'Copyright © '}
+            {"Gefeasoft-Medical "}
             {new Date().getFullYear()}
             {'.'}
         </Typography>
@@ -75,11 +73,21 @@ export default function Register() {
                             margin="normal"
                             required
                             fullWidth
+                            id="username"
+                            label="Username"
+                            name="username"
+                            autoComplete="username"
+                            autoFocus
+                        />
+                        <TextField
+                            variant="outlined"
+                            margin="normal"
+                            required
+                            fullWidth
                             id="email"
                             label="Email Address"
                             name="email"
                             autoComplete="email"
-                            autoFocus
                         />
                         <TextField 
                             variant="outlined"
