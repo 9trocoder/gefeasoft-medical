@@ -8,7 +8,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
-import {makeStyles} from '@material-ui/core/styles';
+import {withStyles} from '@material-ui/core/styles';
 import Image from '../../image/sign.jpg';
 import {Link} from "react-router-dom";
 
@@ -23,7 +23,7 @@ function CopyRight() {
     );
 }
 
-const useStyles = makeStyles((theme) => ({
+const useStyles = theme => ({
     root: {
         height: '100vh',
     },
@@ -52,11 +52,12 @@ const useStyles = makeStyles((theme) => ({
     submit: {
         margin: theme.spacing(3, 0, 2),
     },
-}));
+});
 
 
-export default function Register() {
-    const classes = useStyles();
+class Register extends React.Component {
+    render() {
+    const { classes } = this.props;
     return (
 
         <Grid container component="main" className={classes.root}>
@@ -140,4 +141,7 @@ export default function Register() {
             
         </Grid>
     )
+    }
 }
+
+export default withStyles(useStyles)(Register);
