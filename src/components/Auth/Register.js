@@ -229,6 +229,13 @@ class Register extends React.Component {
                                 control={<Checkbox value="remember" color="primary" />}
                                 label="Remember me"
                             />
+                            {errors.length > 0 && (
+                                <Box mt={5}>
+                                    <Typography variant="body2" color="textSecondary" align="Center">
+                                        {this.displayErrors(errors)}
+                                    </Typography>
+                                </Box>
+                            )}
                             <Button
                                 type="submit"
                                 fullWidth
@@ -240,9 +247,7 @@ class Register extends React.Component {
                                 Sign Up
                             </Button>
                             <Grid container>
-                            <Box mt={5}>
-                                {this.displayErrors(errors)}
-                            </Box>
+                            
                                 <Grid item>
                                     <Link to="/login" variant="body2">
                                     {"Already have account? Login"}

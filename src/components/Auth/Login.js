@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from '../../firebase';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
@@ -56,8 +57,48 @@ const useStyles = theme => ({
 
 
 class Login extends React.Component {
+    state = {
+        email: '',
+        password: '',
+        errors: [],
+        loading: false
+    };
+
+    displayErrors = errors => 
+        errors.map((error, i) => <p key={i}>{error.message}</p>);
+    
+    handleChange = event => {
+        this.setState({ [event.target.name]: event.target.value });
+    };
+
+    handleSubmit = event => {
+        event.preventDefault();
+        if(this.isFormValid(this.state)) {
+            this.setState({ errors: [], loading: true });
+            firebase
+                .auth()
+                .signInWithEmailAndPassword(this.state.email, this.state.password)
+                .then(signedInUser => {
+                    console.log(signedInUser);
+                })
+                .catch(err => {
+                    console.error(err);
+                    this.setState({
+                        errors: this.state.errors.concat(err),
+                        loading: false
+                    });
+                });
+        }
+    };
+
+    isFormValid = ({ email, password }) => email && password;
+
+    handleInputError = (errors, inputName) => {
+        return errors.some(error => error.message.toLowerCase().includes(inputName)) ? "error" : "";
+    };
     
     render() {
+        const { email, password, errors, loading } = this.state;
         const { classes } = this.props;
     return (
 
@@ -69,8 +110,7 @@ class Login extends React.Component {
                         <Typography component="h1" variant="h4">
                             Gefeasoft-Medical
                         </Typography>
-                    <form className={classes.form} noValidate>
-                        
+                    <form onSubmit={this.handleSubmit} className={classes.form} noValidate>                    
                         <TextField
                             variant="outlined"
                             margin="normal"
@@ -79,7 +119,11 @@ class Login extends React.Component {
                             id="email"
                             label="Email Address"
                             name="email"
+                            onChange={this.handleChange}
+                            value={email}
+                            className={this.handleInputError(errors, "email")}
                             autoComplete="email"
+                            autoFocus
                         />
                         <TextField 
                             variant="outlined"
@@ -88,6 +132,9 @@ class Login extends React.Component {
                             fullWidth
                             name="password"
                             label="Password"
+                            onChange={this.handleChange}
+                            value={password}
+                            className={this.handleInputError(errors, "password")}
                             type="password"
                             id="password"
                             autoComplete="current-password"
@@ -96,12 +143,20 @@ class Login extends React.Component {
                             control={<Checkbox value="remember" color="primary" />}
                             label="Remember me"
                         />
+                        {errors.length > 0 && (
+                            <Box mt={5}>
+                                <Typography variant="body2" color="textSecondary" align="Center">
+                                    {this.displayErrors(errors)}
+                                </Typography>
+                            </Box>
+                        )}
                         <Button
                             type="submit"
                             fullWidth
                             variant="contained"
                             color="primary"
                             className={classes.submit}
+                            disabled={loading}
                         >
                             Login
                         </Button>
