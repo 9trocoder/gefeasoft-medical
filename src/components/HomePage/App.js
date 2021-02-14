@@ -1,4 +1,5 @@
 import React from 'react';
+import firebase from '../../firebase';
 import AppBar from '@material-ui/core/AppBar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -101,6 +102,14 @@ const mainFeaturedPost = {
 // }
  
 class App extends React.Component {
+
+  handleSignout = () => {
+    firebase
+      .auth()
+      .signOut()
+      .then(() => console.log("signed out!"));
+  };
+
   render() {
     const { classes } = this.props;
     return (
@@ -115,6 +124,11 @@ class App extends React.Component {
           <Button href="#" color="primary" variant="outlined" className={classes.link}>
             Dashboard
           </Button>
+          <Link className={classes.link}>
+          <Button href="#" color="primary" variant="outlined" className={classes.link} onClick={this.handleSignout}>
+            Sign Out
+          </Button>
+          </Link>
         </Toolbar>
       </AppBar>
       {/* Hero unit */}
