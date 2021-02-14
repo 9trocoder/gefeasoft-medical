@@ -12,6 +12,7 @@ import Paper from '@material-ui/core/Paper';
 import Box from '@material-ui/core/Box';
 import './App.css';
 import MainFeaturedPost from './MainFeaturedPost';
+import DashboardModal from './DashboardModal';
 import { Link } from 'react-router-dom';
 
 function Copyright() {
@@ -100,7 +101,9 @@ const mainFeaturedPost = {
 //     </div>
 //   );
 // }
- 
+    
+    
+
 class App extends React.Component {
 
   handleSignout = () => {
@@ -109,9 +112,10 @@ class App extends React.Component {
       .signOut()
       .then(() => console.log("signed out!"));
   };
-
+  
   render() {
     const { classes } = this.props;
+
     return (
       <React.Fragment>
       <CssBaseline />
@@ -121,9 +125,8 @@ class App extends React.Component {
             Gefeasoft-Medical
           </Typography>
           
-          <Button href="#" color="primary" variant="outlined" className={classes.link}>
-            Dashboard
-          </Button>
+          
+          <DashboardModal />
           <Link className={classes.link}>
           <Button href="#" color="primary" variant="outlined" className={classes.link} onClick={this.handleSignout}>
             Sign Out
