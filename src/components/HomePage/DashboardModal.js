@@ -4,6 +4,7 @@ import Modal from '@material-ui/core/Modal';
 import Button from '@material-ui/core/Button';
 import Backdrop from '@material-ui/core/Backdrop';
 import Fade from '@material-ui/core/Fade';
+import {Link} from 'react-router-dom';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -56,7 +57,7 @@ export default function DashboardModal() {
           <div className={classes.paper}>
             <h3 id="transition-modal-title">Please select your dashboard according to your role.</h3>
             <Button href="#" color="primary" variant="outlined" className={classes.link}>
-                Patient
+                <Link to="/patient">Patient</Link>
             </Button>
             <Button href="#" color="primary" variant="outlined" className={classes.link} onClick={handleOpen}>
                 Doctor

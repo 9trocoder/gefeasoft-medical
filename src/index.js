@@ -4,6 +4,7 @@ import ReactDOM from "react-dom";
 import App from "./components/HomePage/App";
 import Login from "./components/Auth/Login";
 import Register from "./components/Auth/Register";
+import Patient from "./components/Dashboard/Patient";
 import reportWebVitals from './reportWebVitals';
 import firebase from "./firebase";
 
@@ -42,6 +43,7 @@ class Root extends React.Component {
         <Route exact path="/" component={App} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        <Route path="/patient" component={Patient} />
       </Switch>
     );
   }
